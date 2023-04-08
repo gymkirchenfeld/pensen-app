@@ -63,13 +63,6 @@ export default {
           text: 'bis',
           type: 'date',
         },
-        {
-          value: 'totalPercent',
-          align: 'right',
-          sortable: false,
-          text: 'Prozent',
-          type: 'percent',
-        },
       ],
       items: [],
       loading: false,
