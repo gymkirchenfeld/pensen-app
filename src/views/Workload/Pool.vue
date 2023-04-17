@@ -1,6 +1,6 @@
 <template>
   <div v-if="data.items.length > 0">
-    <p class="text-h5 mt-8">{{ title }}</p>
+    <p class="text-h5 mt-8">{{ data.title }}</p>
     <v-data-table
       @click:row="(item) => editPoolEntry(item)"
       dense
@@ -49,15 +49,7 @@ export default {
     SemesterValue,
   },
   props: {
-    ageReliefIncluded: { type: Boolean, default: false },
     data: { type: Object, default: null },
-  },
-  computed: {
-    title() {
-      let result = 'Pensum: Pool';
-      if (this.ageReliefIncluded) result += ' (inkl. AE)';
-      return result;
-    },
   },
   data() {
     return {

@@ -20,13 +20,9 @@
     </template>
     <v-card class="overflow-y-auto" id="fixedCard">
       <v-card-text>
-        <Courses v-if="workload" :data="workload.course" />
-        <Pool
-          v-if="workload && workload.pool"
-          :data="workload.pool"
-          :ageReliefIncluded="workload.ageReliefIncluded"
-        />
-        <Theses v-if="workload && workload.thesis" :data="workload.thesis" />
+        <Courses v-if="workload" :data="workload.courses" />
+        <Pool v-if="workload && workload.pool" :data="workload.pool" />
+        <Theses v-if="workload && workload.theses" :data="workload.theses" />
         <Summary v-if="workload" :data="workload.summary" />
         <Postings
           v-if="workload && workload.postings"
@@ -104,6 +100,7 @@ export default {
         resource: 'workload',
         query: `teacher=${this.teacher.id}&schoolYear=${this.schoolYear.id}`,
       });
+      console.log(this.workload);
     },
     prepareDownload() {
       return {

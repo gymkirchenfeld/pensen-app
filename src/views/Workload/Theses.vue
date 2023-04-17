@@ -26,7 +26,7 @@
           <td class="text-right">
             <SemesterValue
               type="percent"
-              :value="data.total.percent1"
+              :value="data.total.percent"
             ></SemesterValue>
           </td>
         </tr>

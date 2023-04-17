@@ -56,12 +56,6 @@
         </v-list-item>
         <v-list-item>
           <v-checkbox
-            v-model="item.ageReliefIncluded"
-            label="Pool inklusive Altersentlastung"
-          ></v-checkbox>
-        </v-list-item>
-        <v-list-item>
-          <v-checkbox
             v-if="!add"
             v-model="item.finalised"
             label="Planung abgeschlossen"
