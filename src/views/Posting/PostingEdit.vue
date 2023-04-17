@@ -34,7 +34,6 @@
         </v-list-item>
         <v-list-item v-for="postingType in postingTypes" :key="postingType.id">
           <v-text-field
-            v-if="item.details"
             v-model="item.details[postingType.id]"
             :label="postingType.description"
             lang="de-CH"
@@ -68,7 +67,7 @@ export default {
     return {
       add: false,
       item: {
-        lessons: {},
+        details: {},
         schoolYear: this.schoolYear,
       },
       loading: false,
