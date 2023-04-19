@@ -37,14 +37,14 @@
         <v-col>
           <v-text-field
             v-model="modelValue.payment1"
-            label="Auszahlung 1. Semester"
+            label="Auszahlungsziel 1. Semester"
             lang="de-CH"
             type="number"
           ></v-text-field> </v-col
         ><v-col>
           <v-text-field
             v-model="modelValue.payment2"
-            label="Auszahlung 2. Semester"
+            label="Auszahlungsziel 2. Semester"
             lang="de-CH"
             type="number"
           ></v-text-field> </v-col
