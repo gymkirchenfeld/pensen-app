@@ -100,7 +100,6 @@ export default {
         resource: 'workload',
         query: `teacher=${this.teacher.id}&schoolYear=${this.schoolYear.id}`,
       });
-      console.log(this.workload);
     },
     prepareDownload() {
       return {
