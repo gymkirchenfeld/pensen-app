@@ -121,12 +121,6 @@ export default {
           iconTooltip: 'befristet',
         },
         {
-          value: 'payment',
-          align: 'right',
-          text: 'Auszahlung',
-          type: 'percent',
-        },
-        {
           value: 'openingBalance',
           align: 'right',
           text: 'IPB-Anfangssaldo',
