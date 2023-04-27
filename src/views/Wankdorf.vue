@@ -39,7 +39,7 @@ import Course from '@/components/Course.vue';
 import Page from '@/components/Page.vue';
 import SearchField from '@/components/SearchField.vue';
 
-const W_GRADES = ['GYM2', 'GYM3', 'GYM4'];
+const W_GRADES = ['GYM1', 'GYM2', 'GYM3', 'GYM4'];
 const W_SUBJECTS = [
   'D',
   'E',
