@@ -1,5 +1,5 @@
 <template>
-  <v-select
+  <v-autocomplete
     class="flex-grow-0 mr-5"
     dense
     :disabled="items.length < 1"
@@ -10,7 +10,7 @@
     outlined
     return-object
     :value="modelValue"
-    @change="select"
+    @input="select"
   >
     <template v-slot:selection="data"
       >{{ data.item.code }} — {{ data.item.firstName }}
@@ -24,7 +24,7 @@
         </v-list-item-title>
       </v-list-item-content>
     </template>
-  </v-select>
+  </v-autocomplete>
 </template>
 <script>
 export default {
