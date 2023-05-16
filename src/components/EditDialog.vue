@@ -26,7 +26,7 @@
         ><v-form v-model="valid"><slot></slot></v-form
       ></v-card-text>
       <v-card-text v-if="error">
-        <v-alert type="error" title="Fehler">{{ error }}</v-alert>
+        <v-alert type="error" title="Fehler">{{ errorMessage }}</v-alert>
       </v-card-text>
       <v-divider></v-divider>
       <v-card-actions
@@ -49,16 +49,22 @@
 <script>
 export default {
   props: {
-    error: { type: String, default: null },
+    error: { type: Response, default: null },
     icon: { type: String, default: 'mdi-help-circle-outline' },
     saveAllowed: { type: Boolean, default: false },
     tabs: { type: Boolean, default: false },
   },
   data() {
     return {
+      errorMessage: null,
       valid: false,
       visible: true,
     };
+  },
+  watch: {
+    async error() {
+      this.errorMessage = await this.error.text();
+    },
   },
   methods: {
     close() {
