@@ -1,5 +1,6 @@
 <template>
   <EditDialog
+    :error="error"
     @save="save"
     :saveAllowed="!saving"
     :width="512"
@@ -107,6 +108,7 @@ export default {
   data() {
     return {
       add: false,
+      error: null,
       item: {},
       loading: false,
       rules: Rules,
@@ -128,14 +130,17 @@ export default {
     },
     async save() {
       this.saving = true;
-      if (this.add) {
-        await this.apiPost({ resource: 'teacher', data: this.item });
-      } else {
-        await this.apiPut({ resource: 'teacher', data: this.item });
-      }
-      this.$emit('dataChanged');
-      this.$router.push({ name: 'Teacher' });
+      await this.apiSave({
+        resource: 'teacher',
+        add: this.add,
+        data: this.item,
+        onError: (error) => (this.error = error),
+      });
       this.saving = false;
+      if (!this.error) {
+        this.$emit('dataChanged');
+        this.$router.push({ name: 'Teacher' });
+      }
     },
   },
 };

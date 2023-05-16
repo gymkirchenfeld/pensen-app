@@ -1,5 +1,6 @@
 <template>
   <EditDialog
+    :error="error"
     @save="save"
     :saveAllowed="saveAllowed"
     :width="640"
@@ -102,6 +103,7 @@ export default {
       item: {
         crossClass: true,
         curriculum: { grades: [] },
+        error: null,
         grade: null,
         schoolYear: this.schoolYear,
         subject: null,
@@ -164,14 +166,17 @@ export default {
     },
     async save() {
       this.saving = true;
-      if (this.add) {
-        await this.apiPost({ resource: 'course', data: this.item });
-      } else {
-        await this.apiPut({ resource: 'course', data: this.item });
-      }
-      this.$emit('dataChanged');
-      this.$router.push({ name: 'SpecialCourse' });
+      await this.apiSave({
+        resource: 'course',
+        add: this.add,
+        data: this.item,
+        onError: (error) => (this.error = error),
+      });
       this.saving = false;
+      if (!this.error) {
+        this.$emit('dataChanged');
+        this.$router.push({ name: 'SpecialCourse' });
+      }
     },
   },
 };

@@ -51,6 +51,13 @@ export default {
             body: params.data,
           });
         },
+        async apiSave(params) {
+          if (params.add) {
+            return await this.apiPost(params);
+          } else {
+            return await this.apiPut(params);
+          }
+        },
         async apiRequest(params) {
           const headers = new Headers();
           const onError = params.onError || this.handleError;
@@ -70,7 +77,7 @@ export default {
           try {
             const response = await fetch(url, options);
             if (!response.ok) {
-              onError(response);
+              onError(await response.text());
               return params.defaultValue;
             }
             if (response.status === 204) return;

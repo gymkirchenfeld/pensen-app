@@ -1,5 +1,6 @@
 <template>
   <EditDialog
+    :error="error"
     @save="save"
     :saveAllowed="saveAllowed"
     :width="640"
@@ -90,6 +91,7 @@ export default {
   },
   data() {
     return {
+      error: null,
       grades: [],
       item: null,
       loading: false,
@@ -109,10 +111,16 @@ export default {
   methods: {
     async save() {
       this.saving = true;
-      await this.apiPut({ resource: 'defaultlessons', data: this.item });
-      this.$emit('dataChanged');
-      this.$router.push({ name: 'DefaultLessons' });
+      await this.apiPut({
+        resource: 'defaultlessons',
+        data: this.item,
+        onError: (error) => (this.error = error),
+      });
       this.saving = false;
+      if (!this.error) {
+        this.$emit('dataChanged');
+        this.$router.push({ name: 'DefaultLessons' });
+      }
     },
   },
 };
