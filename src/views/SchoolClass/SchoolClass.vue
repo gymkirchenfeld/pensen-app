@@ -83,7 +83,6 @@ export default {
       this.loading = true;
       this.items = await this.apiList({ resource: 'schoolclass' });
       this.loading = false;
-      this.expanded = [false, false, false];
     },
   },
 };

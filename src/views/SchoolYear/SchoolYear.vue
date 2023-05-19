@@ -78,7 +78,6 @@ export default {
       this.loading = true;
       this.items = await this.apiList({ resource: 'schoolyear' });
       this.loading = false;
-      this.expanded = [false, false, false];
     },
   },
 };

@@ -49,7 +49,9 @@ export default {
       });
     },
     async fetchData() {
+      this.loading = true;
       this.items = await this.apiList({ resource: `division` });
+      this.loading = false;
     },
   },
 };
