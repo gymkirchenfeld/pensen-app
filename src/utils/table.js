@@ -3,7 +3,9 @@ export function filterArchived(item, showArchived) {
 }
 
 export function filterText(text, search) {
-  return text && text.toUpperCase().indexOf(search.toUpperCase()) !== -1;
+  return (
+    !search || (text && text.toUpperCase().indexOf(search.toUpperCase()) !== -1)
+  );
 }
 
 export function filterPerson(person, search) {
