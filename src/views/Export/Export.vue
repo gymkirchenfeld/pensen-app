@@ -68,19 +68,6 @@
       </v-card-text>
     </v-card>
     <v-card class="mb-5">
-      <v-card-title>Abschlussarbeiten (CSV)</v-card-title>
-      <v-card-text>
-        <JobButton
-          outlined
-          text
-          color="success"
-          :prepare="prepareTheses"
-          class="mr-5"
-          >Abschlussarbeiten</JobButton
-        >
-      </v-card-text>
-    </v-card>
-    <v-card class="mb-5">
       <v-card-title>Pensenblätter</v-card-title>
       <v-card-text>
         <Select

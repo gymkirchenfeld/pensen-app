@@ -8,6 +8,14 @@
     <template v-slot:toolbar>
       <SearchField v-model="search"></SearchField>
       <v-spacer></v-spacer>
+      <JobButton
+        v-if="!selecting"
+        class="mr-5"
+        outlined
+        color="success"
+        :prepare="prepareDownload"
+        >Liste</JobButton
+      >
     </template>
     <Table
       @click="edit"
@@ -25,12 +33,14 @@
 </template>
 <script>
 import { filterPerson, filterText } from '@/utils/table.js';
+import JobButton from '@/components/JobButton.vue';
 import Page from '@/components/Page.vue';
 import SearchField from '@/components/SearchField.vue';
 import Table from '@/components/Table.vue';
 
 export default {
   components: {
+    JobButton,
     Page,
     SearchField,
     Table,
@@ -94,6 +104,12 @@ export default {
         query: `schoolYear=${this.schoolYear.id}`,
       });
       this.loading = false;
+    },
+    prepareDownload() {
+      return {
+        name: 'ThesisCSVDownload',
+        schoolYear: this.schoolYear,
+      };
     },
   },
 };
