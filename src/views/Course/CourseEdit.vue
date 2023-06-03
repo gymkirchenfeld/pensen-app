@@ -13,17 +13,19 @@
           <v-row>
             <v-col>
               <TeacherMultiInput
+                v-model="item.teachers1"
                 multiple
                 label="Lehrpersonen 1. Semester"
-                v-model="item.teachers1"
+                :schoolYear="schoolYear"
                 @input="teachers1Changed"
               />
             </v-col>
             <v-col>
               <TeacherMultiInput
+                v-model="item.teachers2"
                 multiple
                 label="Lehrpersonen 2. Semester"
-                v-model="item.teachers2"
+                :schoolYear="schoolYear"
               />
             </v-col>
           </v-row>

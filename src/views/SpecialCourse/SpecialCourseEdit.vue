@@ -41,6 +41,7 @@
                 v-model="item.teachers1"
                 multiple
                 label="Lehrpersonen 1. Semester"
+                :schoolYear="schoolYear"
               ></TeacherMultiInput>
             </v-col>
             <v-col>
@@ -59,6 +60,7 @@
                 v-model="item.lessons1"
                 label="Lektionen 1. Semester"
                 type="number"
+                :schoolYear="schoolYear"
               ></v-text-field>
             </v-col>
             <v-col>
