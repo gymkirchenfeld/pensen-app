@@ -17,6 +17,14 @@
       ></Select>
       <SearchField v-model="search"></SearchField>
       <v-spacer></v-spacer>
+      <JobButton
+        v-if="!selecting"
+        class="mr-5"
+        outlined
+        color="success"
+        :prepare="prepareDownload"
+        >Liste</JobButton
+      >
       <v-btn outlined color="success" @click="add" class="ma-1"
         ><v-icon left>mdi-plus</v-icon> Neuer Eintrag
       </v-btn>
@@ -36,6 +44,7 @@
 </template>
 <script>
 import { filterPerson, filterType, filterText } from '@/utils/table.js';
+import JobButton from '@/components/JobButton.vue';
 import Page from '@/components/Page.vue';
 import SearchField from '@/components/SearchField.vue';
 import Select from '@/components/Select.vue';
@@ -43,6 +52,7 @@ import Table from '@/components/Table.vue';
 
 export default {
   components: {
+    JobButton,
     Page,
     SearchField,
     Select,
@@ -121,6 +131,12 @@ export default {
         query: `schoolYear=${this.schoolYear.id}`,
       });
       this.loading = false;
+    },
+    prepareDownload() {
+      return {
+        name: 'PoolCSVDownload',
+        schoolYear: this.schoolYear,
+      };
     },
   },
 };
