@@ -1,4 +1,8 @@
 export default {
+  nonNegativeNumber: [
+    (v) => Boolean(v) || 'Das Feld muss eine Zahl enthalten',
+    (v) => 0 <= v || 'Das Feld muss eine nicht-negative Zahl enthalten.',
+  ],
   week: [
     (v) => Boolean(v) || 'Das Feld muss eine Zahl enthalten',
     (v) =>

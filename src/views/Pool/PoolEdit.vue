@@ -42,6 +42,7 @@
                 label="Prozent 1. Semester"
                 lang="de-CH"
                 type="number"
+                :rules="rules.nonNegativeNumber"
               ></v-text-field> </v-col
             ><v-col>
               <v-text-field
@@ -49,6 +50,7 @@
                 label="Prozent 2. Semester"
                 lang="de-CH"
                 type="number"
+                :rules="rules.nonNegativeNumber"
               ></v-text-field> </v-col
           ></v-row>
         </v-list-item>
@@ -70,6 +72,7 @@
 <script>
 import EditDialog from '@/components/EditDialog.vue';
 import LookupInput from '@/components/LookupInput.vue';
+import Rules from '@/utils/rules.js';
 import TeacherInput from '@/components/TeacherInput.vue';
 export default {
   props: {
@@ -85,6 +88,7 @@ export default {
         schoolYear: this.schoolYear,
       },
       loading: false,
+      rules: Rules,
       saving: false,
     };
   },
