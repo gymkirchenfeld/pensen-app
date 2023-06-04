@@ -65,6 +65,7 @@ export default {
           }
 
           headers.append('Authorization', `Bearer ${accessToken}`);
+          headers.append('Content-Type', `application/json`);
           const options = {
             cache: 'no-cache',
             headers: headers,
