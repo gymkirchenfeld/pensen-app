@@ -9,7 +9,6 @@
       <SearchField v-model="search"></SearchField>
       <v-spacer></v-spacer>
       <JobButton
-        v-if="!selecting"
         class="mr-5"
         outlined
         color="success"
