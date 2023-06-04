@@ -69,13 +69,11 @@ export default {
           this.$root.showError(`Fehler bei ${result.title}: ${result.error}`);
         } else {
           if (result.product) {
-            const dataURL = `data:${result.product.mimeType};base64,${result.product.data}`;
-            const res = await fetch(dataURL);
-            const blob = await res.blob();
+            const file = await this.apiDownload(result.product);
             const link = document.createElement('a');
             link.target = '_blank';
-            link.href = window.URL.createObjectURL(blob);
-            link.download = result.product.fileName;
+            link.href = window.URL.createObjectURL(file.blob);
+            link.download = file.name;
             link.click();
           }
         }

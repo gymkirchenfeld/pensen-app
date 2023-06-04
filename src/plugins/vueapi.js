@@ -2,6 +2,24 @@
  * Provides a Vue plugin for accessing an API.
  **/
 
+/* https://gist.github.com/devloco/5f779216c988438777b76e7db113d05c */
+function extractFileName(header) {
+  if (!header) return 'download.pdf';
+  let contentDispostion = header.split(';');
+  const fileNameToken = `filename=`;
+  let fileName = 'download.pdf';
+  for (let thisValue of contentDispostion) {
+    if (thisValue.trim().indexOf(fileNameToken) === 0) {
+      fileName = decodeURIComponent(
+        thisValue.trim().replace(fileNameToken, ''),
+      );
+      break;
+    }
+  }
+
+  return fileName;
+}
+
 export default {
   install(Vue) {
     Vue.mixin({
@@ -19,6 +37,7 @@ export default {
           let path = `${params.resource}/${params.id}`;
           if (params.query) path += `?${params.query}`;
           return await this.apiRequest({
+            defaultValue: params.defaultValue || {},
             method: 'GET',
             onError: params.onError,
             path: path,
@@ -28,10 +47,10 @@ export default {
           let path = params.resource;
           if (params.query) path += `?${params.query}`;
           return await this.apiRequest({
+            defaultValue: params.defaultValue || [],
             method: 'GET',
             onError: params.onError,
             path: path,
-            defaultValue: params.defaultValue || [],
           });
         },
         async apiPost(params) {
@@ -55,6 +74,13 @@ export default {
           return params.add
             ? await this.apiPost(params)
             : await this.apiPut(params);
+        },
+        async apiDownload(id) {
+          return await this.apiRequest({
+            path: `file/${id}`,
+            method: 'GET',
+            id: id,
+          });
         },
         async apiRequest(params) {
           const headers = new Headers();
@@ -80,7 +106,18 @@ export default {
               return params.defaultValue;
             }
             if (response.status === 204) return;
-            return (await response.json()).result;
+            const contentType = response.headers.get('content-type');
+            if (contentType === 'application/json') {
+              return (await response.json()).result;
+            } else {
+              const fileName = extractFileName(
+                response.headers.get('content-disposition'),
+              );
+              return {
+                blob: await response.blob(),
+                name: fileName,
+              };
+            }
           } catch (error) {
             this.$root.noConnection();
             return params.defaultValue;
