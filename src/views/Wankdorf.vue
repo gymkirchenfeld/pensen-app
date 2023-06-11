@@ -12,9 +12,11 @@
       ></SearchField>
     </template>
     <v-data-table
+      id="fixedTable"
+      fixed-header
       disable-pagination
-      :headers="headers"
       hide-default-footer
+      :headers="headers"
       :items="filtered"
       :items-per-page="-1"
       :loading="loading"
@@ -181,3 +183,8 @@ export default {
   },
 };
 </script>
+<style>
+#fixedTable .v-data-table__wrapper {
+  height: calc(100vh - 160px) !important;
+}
+</style>
