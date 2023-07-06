@@ -3,21 +3,18 @@
  **/
 
 /* https://gist.github.com/devloco/5f779216c988438777b76e7db113d05c */
+const FILENAME = `filename*=UTF-8''`;
+const DEFAULT_FILENAME = 'download.pdf';
 function extractFileName(header) {
-  if (!header) return 'download.pdf';
-  let contentDispostion = header.split(';');
-  const fileNameToken = `filename=`;
-  let fileName = 'download.pdf';
-  for (let thisValue of contentDispostion) {
-    if (thisValue.trim().indexOf(fileNameToken) === 0) {
-      fileName = decodeURIComponent(
-        thisValue.trim().replace(fileNameToken, ''),
-      );
-      break;
+  if (!header) return DEFAULT_FILENAME;
+  const parts = header.split(';');
+  for (let i = 0; i < parts.length; ++i) {
+    let part = parts[i].trim();
+    if (part.indexOf(FILENAME) === 0) {
+      return decodeURIComponent(part.substring(FILENAME.length));
     }
   }
-
-  return fileName;
+  return DEFAULT_FILENAME;
 }
 
 export default {
