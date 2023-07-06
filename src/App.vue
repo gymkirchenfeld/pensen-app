@@ -48,20 +48,6 @@ export default {
       versionInfo: null,
     };
   },
-  watch: {
-    menugroups: {
-      deep: true,
-      handler() {
-        this.menugroups.forEach((group) => {
-          if (group.visible) {
-            localStorage.setItem('menuGroup' + group.title, 'true');
-          } else {
-            localStorage.removeItem('menuGroup' + group.title);
-          }
-        });
-      },
-    },
-  },
   methods: {
     handleProfileError(response) {
       if (response.status === 403) {
