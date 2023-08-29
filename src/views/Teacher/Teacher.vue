@@ -54,6 +54,12 @@ export default {
           text: 'Nachname',
         },
         {
+          value: 'gender',
+          text: 'Gender',
+          type: 'lookup',
+          short: true,
+        },
+        {
           value: 'employeeNumber',
           text: 'Personalnummer',
         },
