@@ -55,7 +55,7 @@ export default {
         },
         {
           value: 'gender',
-          text: 'Gender',
+          text: 'Geschlecht',
           type: 'lookup',
           short: true,
         },
