@@ -10,6 +10,7 @@ function toFixed(value, decimalPlaces) {
 
 export default {
   props: {
+    decimals: { type: Number, default: 2 },
     type: { type: String, default: 'percent' },
     first: { type: Number, default: null },
     second: { type: Number, default: null },
@@ -17,7 +18,9 @@ export default {
   },
   computed: {
     decimalPlaces() {
-      return this.type === 'percent' ? this.$root.percentDecimals : 2;
+      return this.type === 'percent'
+        ? this.$root.percentDecimals
+        : this.decimals;
     },
     suffix() {
       return this.type === 'percent' ? '%' : ' L';

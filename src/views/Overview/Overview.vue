@@ -63,12 +63,18 @@
       <template v-slot:item.lessons="{ item }">
         <SemesterValue
           type="lesson"
+          :decimals="0"
           :first="item.lessons1"
           :second="item.lessons2"
         />
       </template>
       <template v-slot:item.open="{ item }">
-        <SemesterValue type="lesson" :first="item.open1" :second="item.open2" />
+        <SemesterValue
+          type="lesson"
+          :decimals="0"
+          :first="item.open1"
+          :second="item.open2"
+        />
       </template>
       <template v-slot:item.closingBalance="{ item }">
         <SemesterValue type="percent" :value="item.closingBalance" />
@@ -186,8 +192,16 @@ export default {
       subjectCategories: [],
       subjectCategoryHeaders: [
         { text: 'Fachgebiet', value: 'subjectCategory' },
-        { align: 'right', text: 'Total Lektionen', value: 'lessons' },
-        { align: 'right', text: 'nicht zugeteilte Lektionen', value: 'open' },
+        {
+          align: 'right',
+          text: 'Total Lektionen 1. / 2. Sem.',
+          value: 'lessons',
+        },
+        {
+          align: 'right',
+          text: 'nicht zugeteilte Lektionen 1. / 2. Sem.',
+          value: 'open',
+        },
       ],
       divisions: [],
       divisionHeaders: [
