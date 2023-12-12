@@ -195,6 +195,7 @@ export default {
       if (this.fetchScheduled) clearTimeout(this.fetchScheduled);
       if (!this.schoolYear) return;
       if (this.loading) return;
+      this.selectedItems = {};
       this.loading = true;
       let query = `schoolYear=${this.schoolYear.id}`;
       if (this.division && this.division.id != -1)
