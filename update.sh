@@ -1,2 +1,2 @@
 #!/bin/sh
-yarn upgrade-interactive
+yarn upgrade-interactive --ignore-engines
