@@ -41,16 +41,16 @@
                 v-model="item.percent1"
                 label="Prozent 1. Semester"
                 lang="de-CH"
-                type="number"
                 :rules="rules.nonNegativeNumber"
+                type="number"
               ></v-text-field> </v-col
             ><v-col>
               <v-text-field
                 v-model="item.percent2"
                 label="Prozent 2. Semester"
                 lang="de-CH"
-                type="number"
                 :rules="rules.nonNegativeNumber"
+                type="number"
               ></v-text-field> </v-col
           ></v-row>
         </v-list-item>

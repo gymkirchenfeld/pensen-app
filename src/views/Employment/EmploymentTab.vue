@@ -21,6 +21,7 @@
             v-model="modelValue.employmentMin"
             label="Verfügung Minimum"
             lang="de-CH"
+            :rules="rules.nonNegativeNumber"
             type="number"
           ></v-text-field> </v-col
         ><v-col>
@@ -28,6 +29,7 @@
             v-model="modelValue.employmentMax"
             label="Verfügung Maximum"
             lang="de-CH"
+            :rules="rules.nonNegativeNumber"
             type="number"
           ></v-text-field> </v-col
       ></v-row>
@@ -39,6 +41,7 @@
             v-model="modelValue.payment1"
             label="Auszahlungsziel 1. Semester"
             lang="de-CH"
+            :rules="rules.nonNegativeNumber"
             type="number"
           ></v-text-field> </v-col
         ><v-col>
@@ -46,6 +49,7 @@
             v-model="modelValue.payment2"
             label="Auszahlungsziel 2. Semester"
             lang="de-CH"
+            :rules="rules.nonNegativeNumber"
             type="number"
           ></v-text-field> </v-col
       ></v-row>
@@ -68,6 +72,7 @@
 </template>
 <script>
 import LookupInput from '@/components/LookupInput.vue';
+import Rules from '@/utils/rules.js';
 import TeacherInput from '@/components/TeacherInput.vue';
 export default {
   components: { LookupInput, TeacherInput },
@@ -84,6 +89,7 @@ export default {
   data() {
     return {
       modelValue: this.value,
+      rules: Rules,
     };
   },
 };

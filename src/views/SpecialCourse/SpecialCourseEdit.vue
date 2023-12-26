@@ -59,14 +59,17 @@
               <v-text-field
                 v-model="item.lessons1"
                 label="Lektionen 1. Semester"
+                lang="de-CH"
+                :rules="rules.nonNegativeNumber"
                 type="number"
-                :schoolYear="schoolYear"
               ></v-text-field>
             </v-col>
             <v-col>
               <v-text-field
                 v-model="item.lessons2"
                 label="Lektionen 2. Semester"
+                lang="de-CH"
+                :rules="rules.nonNegativeNumber"
                 type="number"
               ></v-text-field>
             </v-col>
@@ -92,6 +95,7 @@
 <script>
 import EditDialog from '@/components/EditDialog.vue';
 import LookupInput from '@/components/LookupInput.vue';
+import Rules from '@/utils/rules.js';
 import TeacherMultiInput from '@/components/TeacherMultiInput.vue';
 export default {
   props: {
@@ -115,6 +119,7 @@ export default {
         teachers2: [],
       },
       loading: false,
+      rules: Rules,
       saving: false,
       subjects: [],
       teachers: [],

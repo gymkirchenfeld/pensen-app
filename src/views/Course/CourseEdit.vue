@@ -36,6 +36,8 @@
               <v-text-field
                 v-model="item.lessons1"
                 label="Lektionen 1. Semester"
+                lang="de-CH"
+                :rules="rules.nonNegativeNumber"
                 type="number"
               ></v-text-field>
             </v-col>
@@ -43,6 +45,8 @@
               <v-text-field
                 v-model="item.lessons2"
                 label="Lektionen 2. Semester"
+                lang="de-CH"
+                :rules="rules.nonNegativeNumber"
                 type="number"
               ></v-text-field> </v-col
           ></v-row>
@@ -80,6 +84,7 @@
 </template>
 <script>
 import EditDialog from '@/components/EditDialog.vue';
+import Rules from '@/utils/rules.js';
 import TeacherMultiInput from '@/components/TeacherMultiInput.vue';
 import { schoolClassCode } from '@/utils/school.js';
 export default {
@@ -110,6 +115,7 @@ export default {
         teachers2: [],
       },
       loading: false,
+      rules: Rules,
       saving: false,
       teachers: [],
     };
