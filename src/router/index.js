@@ -11,6 +11,8 @@ import DivisionEdit from '@/views/Division/DivisionEdit';
 import Employment from '@/views/Employment/Employment';
 import EmploymentEdit from '@/views/Employment/EmploymentEdit';
 import Export from '@/views/Export/Export';
+import LessonTable from '@/views/LessonTable/LessonTable';
+import LessonTableEdit from '@/views/LessonTable/LessonTableEdit';
 import Maintenance from '@/views/Maintenance/Maintenance';
 import NewSchoolYear from '@/views/NewSchoolYear/NewSchoolYear';
 import Overview from '@/views/Overview/Overview';
@@ -117,6 +119,20 @@ const routes = [
     name: 'Export',
     component: Export,
   },
+  {
+    path: '/lessontable',
+    name: 'LessonTable',
+    component: LessonTable,
+    children: [
+      {
+        path: ':id',
+        name: 'LessonTableEdit',
+        props: true,
+        component: LessonTableEdit,
+      },
+    ],
+  },
+
   {
     path: '/maintenance',
     name: 'Maintenance',

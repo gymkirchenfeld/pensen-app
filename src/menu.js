@@ -112,6 +112,11 @@ export default [
         link: 'DefaultLessons',
       },
       {
+        title: 'Lektionentafel NEU',
+        icon: 'mdi-table-large',
+        link: 'LessonTable',
+      },
+      {
         title: 'Lehrpersonen',
         icon: 'mdi-account',
         link: 'Teacher',
