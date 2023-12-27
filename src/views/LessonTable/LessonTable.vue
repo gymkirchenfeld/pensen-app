@@ -33,7 +33,7 @@
       fixed-header
       :headers="headers"
       hide-default-footer
-      :items="items"
+      :items="filteredItems"
       :items-per-page="-1"
     >
       <template v-slot:item="params">
@@ -77,6 +77,11 @@ export default {
       items: [],
       loading: false,
     };
+  },
+  computed: {
+    filteredItems() {
+      return this.items.filter((item) => this.filter(item));
+    },
   },
   watch: {
     crossClass() {
@@ -127,6 +132,9 @@ export default {
       this.buildHeaders(data.grades);
       this.items = data.items;
       this.loading = false;
+    },
+    filter(item) {
+      return !item.subject.archived;
     },
   },
 };
