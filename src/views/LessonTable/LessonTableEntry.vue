@@ -1,6 +1,6 @@
 <template>
   <span
-    ><v-icon small left>{{ icon }}</v-icon>
+    ><v-icon :color="color" small left>{{ icon }}</v-icon>
     <SemesterValue
       v-if="available"
       :decimals="0"
@@ -30,23 +30,29 @@ export default {
       return this.modelValue.type.code !== 'X';
     },
     color() {
-      if (!this.available) return 'red';
       switch (this.modelValue.type.code) {
         case 'A':
-          return 'blue';
+          return 'blue darken';
+        case 'AO':
+          return 'orange darken';
         case 'W':
-          return 'green';
+          return 'grey darken-2';
+        case 'X':
+          return 'grey lighten-2';
         default:
           return 'grey lighten-2';
       }
     },
     icon() {
-      if (!this.available) return 'mdi-cancel';
       switch (this.modelValue.type.code) {
         case 'A':
           return 'mdi-arrow-expand-right';
+        case 'AO':
+          return 'mdi-arrow-expand-right';
         case 'W':
           return 'mdi-arrow-right';
+        case 'X':
+          return 'mdi-cancel';
         default:
           return '???';
       }
