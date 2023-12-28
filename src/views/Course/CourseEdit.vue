@@ -101,8 +101,6 @@ export default {
   data() {
     return {
       add: false,
-      curriculum: { grades: [] },
-      curriculums: [],
       error: null,
       item: {
         crossClass: false,
@@ -144,7 +142,6 @@ export default {
   },
   async created() {
     this.loading = true;
-    this.curriculums = await this.apiList({ resource: 'curriculum' });
     this.add = this.id < 0;
     this.item.schoolYear = this.schoolYear;
     if (this.add) {
