@@ -12,6 +12,7 @@
         <v-list-item v-if="add">
           <LookupInput
             v-model="item.curriculum"
+            @input="updateLessons"
             label="Lehrgang"
             resource="curriculum"
           ></LookupInput>
@@ -19,6 +20,7 @@
         <v-list-item v-if="add">
           <v-select
             v-model="item.grade"
+            @input="updateLessons"
             label="Stufe"
             item-text="description"
             :items="item.curriculum.grades"
@@ -28,6 +30,7 @@
         <v-list-item v-if="add">
           <v-select
             v-model="item.subject"
+            @input="updateLessons"
             label="Fach"
             item-text="description"
             :items="subjects"
@@ -106,10 +109,10 @@ export default {
   data() {
     return {
       add: false,
+      error: null,
       item: {
         crossClass: true,
         curriculum: { grades: [] },
-        error: null,
         grade: null,
         schoolYear: this.schoolYear,
         subject: null,
@@ -183,6 +186,22 @@ export default {
       if (!this.error) {
         this.$emit('dataChanged');
         this.$router.push({ name: 'SpecialCourse' });
+      }
+    },
+    async updateLessons() {
+      if (this.item.curriculum.id && this.item.grade && this.item.subject) {
+        let query = `curriculum=${this.item.curriculum.id}`;
+        query += `&subject=${this.item.subject.id}`;
+        const data = await this.apiList({
+          resource: 'lessontable',
+          query: query,
+        });
+        data.details.forEach((entry) => {
+          if (entry.grade.id === this.item.grade.id) {
+            this.item.lessons1 = entry.lessons1;
+            this.item.lessons2 = entry.lessons2;
+          }
+        });
       }
     },
   },
