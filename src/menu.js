@@ -109,11 +109,6 @@ export default [
       {
         title: 'Lektionentafel',
         icon: 'mdi-table-large',
-        link: 'DefaultLessons',
-      },
-      {
-        title: 'Lektionentafel NEU',
-        icon: 'mdi-table-large',
         link: 'LessonTable',
       },
       {

@@ -4,8 +4,6 @@ import Course from '@/views/Course/Course';
 import CourseEdit from '@/views/Course/CourseEdit';
 import Curriculum from '@/views/Curriculum/Curriculum';
 import CurriculumEdit from '@/views/Curriculum/CurriculumEdit';
-import DefaultLessons from '@/views/DefaultLessons/DefaultLessons';
-import DefaultLessonsEdit from '@/views/DefaultLessons/DefaultLessonsEdit';
 import Division from '@/views/Division/Division';
 import DivisionEdit from '@/views/Division/DivisionEdit';
 import Employment from '@/views/Employment/Employment';
@@ -72,19 +70,6 @@ const routes = [
         name: 'CurriculumEdit',
         props: idProp,
         component: CurriculumEdit,
-      },
-    ],
-  },
-  {
-    path: '/defaultlessons',
-    name: 'DefaultLessons',
-    component: DefaultLessons,
-    children: [
-      {
-        path: ':id',
-        name: 'DefaultLessonsEdit',
-        props: idProp,
-        component: DefaultLessonsEdit,
       },
     ],
   },

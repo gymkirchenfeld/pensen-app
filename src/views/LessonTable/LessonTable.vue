@@ -1,5 +1,5 @@
 <template>
-  <Page icon="mdi-table-large" title="Lektionentafel NEU">
+  <Page icon="mdi-table-large" title="Lektionentafel">
     <template v-slot:toolbar>
       <Select
         v-model="curriculum"
