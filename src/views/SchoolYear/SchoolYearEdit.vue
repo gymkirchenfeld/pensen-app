@@ -66,7 +66,7 @@
           </v-list>
         </v-col>
         <v-col>
-          <v-list>
+          <v-list v-if="item.weeklyLessons">
             <v-subheader>ANHANG 3A LAV ART. 42</v-subheader>
             <v-list-item>
               <v-text-field
@@ -120,7 +120,10 @@ export default {
   async created() {
     this.loading = true;
     this.add = this.id < 0;
-    this.payrollTypes = await this.apiList({ resource: 'payrolltype' });
+    this.payrollTypes = await this.apiList({
+      resource: 'payrolltype',
+      query: 'lessonBased=true',
+    });
     if (!this.add) {
       this.item = await this.apiGet({ resource: 'schoolyear', id: this.id });
     }
