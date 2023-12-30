@@ -116,27 +116,16 @@ export default {
       if (course.teachers1.length > 0) {
         display1 = course.teachers1.map((teacher) => teacher.code).join(', ');
       } else {
-        if (course.lessons1 > 0) {
-          display1 = course.lessons1;
-        } else {
-          display1 = '—';
-        }
+        display1 = course.lessons1 > 0 ? course.lessons1 : '—';
       }
       let display2 = '';
       if (course.teachers2.length > 0) {
         display2 = course.teachers2.map((teacher) => teacher.code).join(', ');
       } else {
-        if (course.lessons2 > 0) {
-          display2 = course.lessons2;
-        } else {
-          display2 = '—';
-        }
+        display2 = course.lessons2 > 0 ? course.lessons2 : '—';
       }
-      if (display1 === display2) {
-        this.display = display1;
-      } else {
-        this.display = display1 + ' / ' + display2;
-      }
+      this.display =
+        display1 === display2 ? display1 : `${display1} / ${display2}`;
     },
     onClick() {
       if (this.selecting) {
