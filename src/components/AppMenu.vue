@@ -48,11 +48,7 @@ export default {
     menu() {
       this.menugroups = this.menu;
       this.menugroups.forEach((group) => {
-        if (localStorage.getItem('menuGroup' + group.title)) {
-          group.visible = true;
-        } else {
-          group.visible = false;
-        }
+        group.visible = localStorage.getItem('menuGroup' + group.title);
       });
     },
     menugroups: {

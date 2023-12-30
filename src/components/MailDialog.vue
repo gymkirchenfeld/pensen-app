@@ -113,11 +113,7 @@ export default {
     },
     title() {
       let result = 'Versand';
-      if (this.teacher) {
-        result += ' Pensenblatt ';
-      } else {
-        result += ' Pensenblätter ';
-      }
+      result += this.teacher ? ' Pensenblatt ' : ' Pensenblätter ';
       if (this.schoolYear) {
         result += this.schoolYear.code;
       }
