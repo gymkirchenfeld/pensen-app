@@ -1,22 +1,11 @@
 <template>
   <span
     ><v-icon :color="color" small left>{{ icon }}</v-icon>
-    <SemesterValue
-      v-if="available"
-      :decimals="0"
-      :first="modelValue.lessons1"
-      :second="modelValue.lessons2"
-      type="lesson"
-    ></SemesterValue
-  ></span>
+    {{ text }}
+  </span>
 </template>
 <script>
-import SemesterValue from '@/components/SemesterValue.vue';
-
 export default {
-  components: {
-    SemesterValue,
-  },
   props: {
     value: { type: Object, default: null },
   },
@@ -28,6 +17,11 @@ export default {
   computed: {
     available() {
       return this.modelValue.type.code !== 'X';
+    },
+    text() {
+      const l1 = this.modelValue.lessons1;
+      const l2 = this.modelValue.lessons2;
+      return this.available ? (l1 === l2 ? `${l1} L` : `${l1} / ${l2} L`) : '';
     },
     color() {
       switch (this.modelValue.type.code) {
