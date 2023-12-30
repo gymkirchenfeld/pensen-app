@@ -16,7 +16,7 @@
                 v-model="item.teachers1"
                 multiple
                 label="Lehrpersonen 1. Semester"
-                :schoolYear="schoolYear"
+                :schoolYear="item.schoolYear"
                 @input="teachers1Changed"
               />
             </v-col>
@@ -25,7 +25,7 @@
                 v-model="item.teachers2"
                 multiple
                 label="Lehrpersonen 2. Semester"
-                :schoolYear="schoolYear"
+                :schoolYear="item.schoolYear"
               />
             </v-col>
           </v-row>
@@ -59,7 +59,7 @@
             maxlength="100"
           ></v-text-field>
         </v-list-item>
-        <v-list-item v-if="!add">
+        <v-list-item>
           <v-checkbox
             v-model="item.cancelled"
             label="findet nicht statt"
@@ -68,15 +68,10 @@
       </v-list>
     </template>
     <template v-slot:actions>
-      <v-btn
-        v-if="!add"
-        text
-        @click="split"
-        color="warning"
-        :disabled="!splitAllowed"
+      <v-btn text @click="split" color="warning" :disabled="!splitAllowed"
         ><v-icon>mdi-arrow-split-vertical</v-icon> Aufteilen</v-btn
       >
-      <v-btn v-if="!add" text @click="remove" color="error"
+      <v-btn text @click="remove" color="error"
         ><v-icon left>mdi-delete</v-icon> Löschen</v-btn
       >
     </template>
@@ -90,9 +85,6 @@ import { schoolClassCode } from '@/utils/school.js';
 export default {
   props: {
     id: { type: Number, default: -1 },
-    schoolClass: Object,
-    schoolYear: Object,
-    subject: Object,
   },
   components: {
     EditDialog,
@@ -100,7 +92,6 @@ export default {
   },
   data() {
     return {
-      add: false,
       error: null,
       item: {
         crossClass: false,
@@ -142,15 +133,7 @@ export default {
   },
   async created() {
     this.loading = true;
-    this.add = this.id < 0;
-    this.item.schoolYear = this.schoolYear;
-    if (this.add) {
-      this.item.schoolClasses.push(this.schoolClass);
-      this.item.schoolYear = this.schoolYear;
-      this.item.subject = this.subject;
-    } else {
-      this.item = await this.apiGet({ resource: 'course', id: this.id });
-    }
+    this.item = await this.apiGet({ resource: 'course', id: this.id });
     this.loading = false;
   },
   methods: {
@@ -171,9 +154,8 @@ export default {
     },
     async save() {
       this.saving = true;
-      await this.apiSave({
+      await this.apiPut({
         resource: 'course',
-        add: this.add,
         data: this.item,
         onError: (error) => (this.error = error),
       });

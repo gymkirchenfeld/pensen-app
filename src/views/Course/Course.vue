@@ -163,9 +163,18 @@ export default {
   },
   methods: {
     async add(schoolClass, subject) {
-      this.schoolClass = schoolClass;
-      this.subject = subject;
-      this.$router.push({ name: 'CourseEdit', params: { id: -1 } });
+      const newCourse = await this.apiPost({
+        resource: 'course',
+        data: {
+          schoolClasses: [schoolClass],
+          schoolYear: this.schoolYear,
+          subject: subject,
+          lessons1: -1,
+          lessons2: -1,
+        },
+      });
+      this.fetchData();
+      this.edit(newCourse);
     },
     async cancel() {
       const ids = Object.keys(this.selectedItems);
