@@ -83,7 +83,7 @@ export default {
         sortable: false,
         align: 'right',
         text: thesisType.description,
-        value: thesisType.id.toString(),
+        value: `thesisCounts.${thesisType.id}`,
       });
     });
     this.fetchData();
