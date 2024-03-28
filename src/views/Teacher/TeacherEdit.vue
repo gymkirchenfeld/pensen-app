@@ -63,6 +63,7 @@
             counter
             label="E-Mail-Adresse"
             maxlength="255"
+            :rules="rules.emailAddress"
           ></v-text-field>
         </v-list-item>
         <v-list-item>

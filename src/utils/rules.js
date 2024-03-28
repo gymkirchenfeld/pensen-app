@@ -6,7 +6,14 @@ function isNumeric(str) {
   );
 }
 
+const emailRegex = new RegExp('[a-z0-9]+@[a-z]+.[a-z]{2,3}');
+
 export default {
+  emailAddress: [
+    (v) =>
+      emailRegex.test(v) ||
+      'Das Feld muss eine gültige E-Mail-Adresse enthalten',
+  ],
   nonNegativeNumber: [
     (v) => isNumeric(v) || 'Das Feld muss eine Zahl enthalten',
     (v) =>
