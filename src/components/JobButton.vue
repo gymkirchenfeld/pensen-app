@@ -1,5 +1,10 @@
 <template>
-  <v-btn :disabled="running" @click="start" :class="classes" v-bind="$attrs">
+  <v-btn
+    :disabled="running || disabled"
+    @click="start"
+    :class="classes"
+    v-bind="$attrs"
+  >
     <v-progress-circular
       class="mr-2"
       :rotate="360"
@@ -16,6 +21,7 @@
 export default {
   props: {
     confirm: { type: String, default: null },
+    disabled: { type: Boolean, default: false },
     icon: { type: String, default: 'mdi-download' },
     parameters: { type: Object, default: () => {} },
     prepare: { type: Function, default: null },

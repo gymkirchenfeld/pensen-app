@@ -21,44 +21,50 @@
         </v-toolbar>
       </v-card-title>
       <v-card-text>
-        <v-list>
-          <v-list-item>
-            <v-text-field
-              v-model="recipient"
-              label="Empfänger"
-              lang="de-CH"
-              readonly
-              filled
-            ></v-text-field>
-          </v-list-item>
-          <v-list-item>
-            <v-text-field
-              v-model="settings.mailFrom"
-              label="Absender"
-              lang="de-CH"
-            ></v-text-field>
-          </v-list-item>
-          <v-list-item>
-            <v-text-field
-              v-model="settings.mailSubject"
-              label="Betreff"
-              lang="de-CH"
-            ></v-text-field>
-          </v-list-item>
-          <v-list-item>
-            <v-textarea
-              v-model="settings.mailBody"
-              counter
-              label="Inhalt"
-              rows="8"
-            ></v-textarea>
-          </v-list-item>
-        </v-list>
+        <v-form v-model="valid">
+          <v-list>
+            <v-list-item>
+              <v-text-field
+                v-model="recipient"
+                label="Empfänger"
+                lang="de-CH"
+                readonly
+                filled
+              ></v-text-field>
+            </v-list-item>
+            <v-list-item>
+              <v-text-field
+                type="email"
+                v-model="settings.mailFrom"
+                label="Absender"
+                lang="de-CH"
+                :rules="rules.emailAddress"
+              ></v-text-field>
+            </v-list-item>
+            <v-list-item>
+              <v-text-field
+                v-model="settings.mailSubject"
+                label="Betreff"
+                lang="de-CH"
+                :rules="rules.requiredText"
+              ></v-text-field>
+            </v-list-item>
+            <v-list-item>
+              <v-textarea
+                v-model="settings.mailBody"
+                counter
+                label="Inhalt"
+                rows="8"
+              ></v-textarea>
+            </v-list-item>
+          </v-list>
+        </v-form>
       </v-card-text>
       <v-divider></v-divider>
       <v-card-actions>
         <v-spacer></v-spacer>
         <JobButton
+          :disabled="!valid"
           @done="close"
           color="success"
           text
@@ -80,6 +86,7 @@
 </template>
 <script>
 import JobButton from '@/components/JobButton.vue';
+import Rules from '@/utils/rules.js';
 export default {
   components: {
     JobButton,
@@ -91,7 +98,9 @@ export default {
   },
   data() {
     return {
+      rules: Rules,
       settings: {},
+      valid: false,
       visible: false,
     };
   },
