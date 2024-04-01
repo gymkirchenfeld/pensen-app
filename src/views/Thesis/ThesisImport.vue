@@ -157,10 +157,11 @@ export default {
       items.forEach((item) => {
         item.status = 'ready';
         item.oldThesisCounts = {};
-        for (const key in item.thesisCounts) {
+        this.thesisTypes.forEach((thesisType) => {
+          const key = thesisType.id;
           item.oldThesisCounts[key] = item.thesisCounts[key];
           item.thesisCounts[key] = 0;
-        }
+        });
         itemMap[item.teacher.code] = item;
       });
       this.items = items;
