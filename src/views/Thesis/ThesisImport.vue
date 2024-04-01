@@ -172,7 +172,7 @@ export default {
       const lines = this.rawInput.split('\n');
       let i = 1;
       lines.forEach((line) => {
-        const columns = line.match(/[^\s,]+/g);
+        const columns = this.parseLine(line, i);
         if (!columns || columns.length !== columnCount) {
           console.log(`Zeile ${i} enthält zu wenig Spalten.`);
         } else {
@@ -183,10 +183,11 @@ export default {
           } else {
             this.thesisTypes.forEach((thesisType) => {
               const key = thesisType.id;
-              const count = Number.parseFloat(columns[key]);
+              const count =
+                columns[key] === '' ? 0 : Number.parseFloat(columns[key]);
               if (isNaN(count)) {
                 console.log(
-                  `Ungültige Zahl ${columns[thesisType.id]} auf Zeile ${i}.`,
+                  `Ungültige Zahl <${columns[thesisType.id]}> auf Zeile ${i}.`,
                 );
               } else {
                 item.thesisCounts[key] = count;
@@ -197,6 +198,17 @@ export default {
         i += 1;
       });
       this.step += 1;
+    },
+    parseLine(line, i) {
+      if (line.indexOf('\t') > -1) {
+        return line.split('\t');
+      } else if (line.indexOf(',') > -1) {
+        return line.split(',');
+      } else {
+        console.log(
+          `Zeile ${i} enthält kein gültiges Spaltentrennzeichen und wird ignoriert.`,
+        );
+      }
     },
     stepImport() {
       this.importing = true;
