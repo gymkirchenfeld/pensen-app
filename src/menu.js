@@ -74,10 +74,10 @@ export default [
         link: 'Maintenance',
       },
       {
-        title: 'Planung Wankdorf',
+        title: 'Planung Businesspark',
         icon: 'mdi-home-group',
-        link: 'Wankdorf',
-        feature: 'wankdorf',
+        link: 'Businesspark',
+        feature: 'businesspark',
       },
       {
         title: 'Import Arbeiten',

@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import Businesspark from '@/views/Businesspark';
 import Course from '@/views/Course/Course';
 import CourseEdit from '@/views/Course/CourseEdit';
 import Curriculum from '@/views/Curriculum/Curriculum';
@@ -32,7 +33,6 @@ import Thesis from '@/views/Thesis/Thesis';
 import ThesisEdit from '@/views/Thesis/ThesisEdit';
 import ThesisImport from '@/views/Thesis/ThesisImport';
 import ThesisImportNeufeld from '@/views/Thesis/ThesisImportNeufeld';
-import Wankdorf from '@/views/Wankdorf';
 import Workload from '@/views/Workload/Workload';
 
 Vue.use(VueRouter);
@@ -248,9 +248,9 @@ const routes = [
     component: ThesisImportNeufeld,
   },
   {
-    path: '/wankdorf',
-    name: 'Wankdorf',
-    component: Wankdorf,
+    path: '/businesspark',
+    name: 'Businesspark',
+    component: Businesspark,
   },
   {
     path: '/workload',

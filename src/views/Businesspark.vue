@@ -1,7 +1,7 @@
 <template>
   <Page
     icon="mdi-home-group"
-    title="Planung Wankdorf"
+    title="Planung Businesspark"
     schoolYearVisible
     v-model="schoolYear"
   >
@@ -43,14 +43,22 @@ import SearchField from '@/components/SearchField.vue';
 
 const W_GRADES = ['GYM1', 'GYM2', 'GYM3', 'GYM4'];
 const W_SUBJECTS = [
+  'B',
+  'B PR',
+  'BG',
+  'C',
+  'C PR',
   'D',
   'E',
+  'EWR',
   'F',
   'G',
-  'M',
   'Ge',
+  'GG',
+  'M',
   'Me',
-  'EWR',
+  'MU',
+  'P',
   'SF PH',
   'SF PP',
   'SF WR',
