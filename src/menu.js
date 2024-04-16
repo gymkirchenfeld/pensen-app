@@ -84,6 +84,12 @@ export default [
         icon: 'mdi-import',
         link: 'ThesisImport',
       },
+      {
+        title: 'Berechtigungen',
+        icon: 'mdi-key-variant',
+        link: 'Permission',
+        feature: 'permissions',
+      },
     ],
   },
   {

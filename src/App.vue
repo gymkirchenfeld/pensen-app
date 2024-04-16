@@ -62,6 +62,7 @@ export default {
         resource: 'profile',
       });
       this.features = profile.features || [];
+      if (profile.grantAllowed) this.features.push('permissions');
       this.menu = menu;
     },
     setConfiguration(config) {

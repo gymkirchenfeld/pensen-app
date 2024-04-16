@@ -15,6 +15,8 @@ import LessonTableEdit from '@/views/LessonTable/LessonTableEdit';
 import Maintenance from '@/views/Maintenance/Maintenance';
 import NewSchoolYear from '@/views/NewSchoolYear/NewSchoolYear';
 import Overview from '@/views/Overview/Overview';
+import Permission from '@/views/Permission/Permission';
+import PermissionEdit from '@/views/Permission/PermissionEdit';
 import Pool from '@/views/Pool/Pool';
 import PoolEdit from '@/views/Pool/PoolEdit';
 import Posting from '@/views/Posting/Posting';
@@ -132,6 +134,19 @@ const routes = [
     path: '/overview',
     name: 'Overview',
     component: Overview,
+  },
+  {
+    path: '/permission',
+    name: 'Permission',
+    component: Permission,
+    children: [
+      {
+        path: ':id',
+        name: 'PermissionEdit',
+        props: idProp,
+        component: PermissionEdit,
+      },
+    ],
   },
   {
     path: '/pool',
