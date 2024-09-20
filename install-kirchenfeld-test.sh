@@ -1,6 +1,6 @@
 #!/bin/sh
 yarn build
-SERVER=web2.kinet.ch
+SERVER=web4-test.kinet.ch
 ROOT=/srv/www/pensen2.gymkirchenfeld.ch/
 ME=$(ssh ${SERVER} echo \$\{USER\})
 ssh ${SERVER} sudo chown -R ${ME} ${ROOT}
