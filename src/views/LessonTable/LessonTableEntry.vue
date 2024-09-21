@@ -25,13 +25,13 @@ export default {
     },
     color() {
       switch (this.modelValue.type.code) {
-        case 'A':
+        case 'start':
           return 'blue darken';
-        case 'AO':
+        case 'startOptional':
           return 'orange darken';
-        case 'W':
+        case 'continuation':
           return 'grey darken-2';
-        case 'X':
+        case 'noLessons':
           return 'grey lighten-2';
         default:
           return 'grey lighten-2';
@@ -39,13 +39,13 @@ export default {
     },
     icon() {
       switch (this.modelValue.type.code) {
-        case 'A':
+        case 'start':
           return 'mdi-arrow-expand-right';
-        case 'AO':
+        case 'startOptional':
           return 'mdi-arrow-expand-right';
-        case 'W':
+        case 'continuation':
           return 'mdi-arrow-right';
-        case 'X':
+        case 'noLessons':
           return 'mdi-cancel';
         default:
           return '???';
