@@ -34,7 +34,7 @@
       </v-card-text>
     </v-card>
     <v-card class="mb-5">
-      <v-card-title>Planung Liebefeld</v-card-title>
+      <v-card-title>Planung Liebefeld (CSV)</v-card-title>
       <v-card-text>
         <JobButton
           outlined
