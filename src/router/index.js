@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Businesspark from '@/views/Businesspark';
 import Course from '@/views/Course/Course';
 import CourseEdit from '@/views/Course/CourseEdit';
 import Curriculum from '@/views/Curriculum/Curriculum';
@@ -261,11 +260,6 @@ const routes = [
     path: '/thesisimportneufeld',
     name: 'ThesisImportNeufeld',
     component: ThesisImportNeufeld,
-  },
-  {
-    path: '/businesspark',
-    name: 'Businesspark',
-    component: Businesspark,
   },
   {
     path: '/workload',

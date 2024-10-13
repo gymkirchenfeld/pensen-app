@@ -74,12 +74,6 @@ export default [
         link: 'Maintenance',
       },
       {
-        title: 'Planung Businesspark',
-        icon: 'mdi-home-group',
-        link: 'Businesspark',
-        feature: 'businesspark',
-      },
-      {
         title: 'Import Arbeiten',
         icon: 'mdi-import',
         link: 'ThesisImport',
