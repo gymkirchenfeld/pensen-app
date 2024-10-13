@@ -34,6 +34,22 @@
       </v-card-text>
     </v-card>
     <v-card class="mb-5">
+      <v-card-title>Planung Liebefeld</v-card-title>
+      <v-card-text>
+        <JobButton
+          outlined
+          text
+          color="success"
+          class="mr-5"
+          :prepare="prepareLiebefeld22"
+          >Liebefeld 2/2</JobButton
+        >
+        <JobButton outlined text color="success" :prepare="prepareLiebefeld24"
+          >Liebefeld 2/4</JobButton
+        >
+      </v-card-text></v-card
+    >
+    <v-card class="mb-5">
       <v-card-title>Lektionenzuteilung (PDF)</v-card-title>
       <v-card-text>
         <JobButton
@@ -141,6 +157,20 @@ export default {
       return {
         name: 'TeacherCourseDownload',
         schoolYear: this.schoolYear,
+      };
+    },
+    prepareLiebefeld22() {
+      return {
+        name: 'GroupingCSVDownload',
+        schoolYear: this.schoolYear,
+        mode: 1,
+      };
+    },
+    prepareLiebefeld24() {
+      return {
+        name: 'GroupingCSVDownload',
+        schoolYear: this.schoolYear,
+        mode: 2,
       };
     },
     prepareOpenWorkload() {
