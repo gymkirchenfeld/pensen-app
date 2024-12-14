@@ -63,7 +63,7 @@ export default {
   },
   watch: {
     async error() {
-      this.errorMessage = await this.error.text();
+      if (this.error) this.errorMessage = await this.error.text();
     },
   },
   methods: {

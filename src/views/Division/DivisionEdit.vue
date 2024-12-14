@@ -104,6 +104,7 @@ export default {
       this.$router.back();
     },
     async save() {
+      this.error = null;
       this.saving = true;
       await this.apiSave({
         resource: 'division',

@@ -161,6 +161,7 @@ export default {
       });
     },
     async save(saveCopy) {
+      this.error = null;
       this.saving = true;
       await this.apiSave({
         resource: 'curriculum',

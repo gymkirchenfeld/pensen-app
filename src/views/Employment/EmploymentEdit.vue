@@ -117,6 +117,7 @@ export default {
       }
     },
     async save() {
+      this.error = null;
       this.saving = true;
       await this.apiSave({
         resource: 'employment',
