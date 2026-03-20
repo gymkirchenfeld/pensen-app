@@ -4,8 +4,6 @@
 #yarn build
 
 if [ -z "$1" ] || [ -z "$2" ]; then
-  echo "Verwendung: $0 <server> <root>"
-  echo "Beispiel:   $0 pm.gymneufeld.site /var/www/pensen.gymneufeld.site"
   exit 1
 fi
 
