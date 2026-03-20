@@ -1,7 +1,17 @@
 #!/bin/sh
-yarn build
-SERVER=pm.gymneufeld.site
-ROOT=/var/www/pensen.gymneufeld.site
+
+#Build ist am Gym Neufeld vom Deployment getrennt
+#yarn build
+
+if [ -z "$1" ] || [ -z "$2" ]; then
+  echo "Verwendung: $0 <server> <root>"
+  echo "Beispiel:   $0 pm.gymneufeld.site /var/www/pensen.gymneufeld.site"
+  exit 1
+fi
+
+SERVER="$1"
+ROOT="$2"
+
 ME=$(ssh ${SERVER} echo \$\{USER\})
 ssh ${SERVER} sudo chown -R ${ME} ${ROOT}
 rsync -av --delete dist/* ${SERVER}:${ROOT}
