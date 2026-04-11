@@ -8,7 +8,7 @@
     :loading="loading"
   >
     <template v-slot:item.payrollType="{ item }">
-      <span v-if="item.description">{{ item.description }}</span>
+      <span v-if="item.correction">{{ item.description }}</span>
       <LookupValue v-else :value="item.payrollType" />
     </template>
     <template v-slot:item.lessons1="{ item }">
@@ -37,6 +37,7 @@ function sumPayroll(regularMap, correctionMap, payroll) {
         correctionMap[id] = {
           parentPayrollType: item.parentPayrollType,
           description: item.description,
+          correction: true,
           lessons1: 0,
           lessons2: 0,
           percent1: 0,
