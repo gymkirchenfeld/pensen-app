@@ -8,7 +8,8 @@
     :loading="loading"
   >
     <template v-slot:item.payrollType="{ item }">
-      <LookupValue :value="item.payrollType" />
+      <span v-if="item.description">{{ item.description }}</span>
+      <LookupValue v-else :value="item.payrollType" />
     </template>
     <template v-slot:item.lessons1="{ item }">
       <SemesterValue type="lessons" :value="item.lessons1" />
@@ -28,13 +29,32 @@
 import LookupValue from '@/components/LookupValue.vue';
 import SemesterValue from '@/components/SemesterValue.vue';
 
-function sumPayroll(map, payroll) {
+function sumPayroll(regularMap, correctionMap, payroll) {
   payroll.items.forEach((item) => {
-    const payroll = map[item.payrollType.id];
-    payroll.lessons1 += item.lessons1;
-    payroll.lessons2 += item.lessons2;
-    payroll.percent1 += item.percent1;
-    payroll.percent2 += item.percent2;
+    if (item.correction) {
+      const id = item.parentPayrollType.id;
+      if (!correctionMap[id]) {
+        correctionMap[id] = {
+          parentPayrollType: item.parentPayrollType,
+          description: item.description,
+          lessons1: 0,
+          lessons2: 0,
+          percent1: 0,
+          percent2: 0,
+        };
+      }
+      correctionMap[id].lessons1 += item.lessons1;
+      correctionMap[id].lessons2 += item.lessons2;
+      correctionMap[id].percent1 += item.percent1;
+      correctionMap[id].percent2 += item.percent2;
+    } else {
+      const entry = regularMap[item.payrollType.id];
+      if (!entry) return;
+      entry.lessons1 += item.lessons1;
+      entry.lessons2 += item.lessons2;
+      entry.percent1 += item.percent1;
+      entry.percent2 += item.percent2;
+    }
   });
 }
 
@@ -88,9 +108,9 @@ export default {
     async fetchData() {
       this.loading = true;
       const payrollTypes = await this.apiList({ resource: 'payrolltype' });
-      const map = {};
+      const regularMap = {};
       payrollTypes.forEach((payrollType) => {
-        map[payrollType.id] = {
+        regularMap[payrollType.id] = {
           payrollType: payrollType,
           lessons1: 0,
           lessons2: 0,
@@ -98,16 +118,20 @@ export default {
           percent2: 0,
         };
       });
+      const correctionMap = {};
       const workloads = await this.apiList({
         resource: 'workload',
         query: `schoolYear=${this.schoolYear.id}`,
       });
       workloads.forEach((workload) => {
-        sumPayroll(map, workload.payroll);
+        sumPayroll(regularMap, correctionMap, workload.payroll);
       });
       this.items = [];
       payrollTypes.forEach((payrollType) => {
-        this.items.push(map[payrollType.id]);
+        this.items.push(regularMap[payrollType.id]);
+        if (correctionMap[payrollType.id]) {
+          this.items.push(correctionMap[payrollType.id]);
+        }
       });
       this.loading = false;
     },
