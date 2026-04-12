@@ -9,7 +9,8 @@
       :items-per-page="-1"
     >
       <template v-slot:item.payrollType="{ item }">
-        <LookupValue :value="item.payrollType" />
+        <span v-if="item.correction">{{ item.description }}</span>
+        <LookupValue v-else :value="item.payrollType" />
       </template>
       <template v-slot:item.lessons1="{ item }">
         <SemesterValue type="lessons" :value="item.lessons1" />
