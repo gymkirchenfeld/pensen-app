@@ -88,6 +88,15 @@
                 type="number"
               ></v-text-field>
             </v-list-item>
+            <v-list-item>
+              <v-text-field
+                v-model.number="item.smallGroupSurcharge"
+                label="Kleingruppen-Zuschlag (L pro Woche)"
+                lang="de-CH"
+                :rules="rules.nonNegativeNumber"
+                type="number"
+              ></v-text-field>
+            </v-list-item>
           </v-list>
         </v-col>
       </v-row>

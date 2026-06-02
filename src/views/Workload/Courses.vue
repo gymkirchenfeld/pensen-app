@@ -11,6 +11,24 @@
     >
       <template v-slot:item.subject="{ item }">
         <LookupValue :value="item.subject" />
+        <v-chip
+          v-if="item.smallGroup1 && item.smallGroup2"
+          x-small
+          color="blue lighten-4"
+          class="ml-1"
+        >KG</v-chip>
+        <v-chip
+          v-else-if="item.smallGroup1"
+          x-small
+          color="blue lighten-4"
+          class="ml-1"
+        >KG 1</v-chip>
+        <v-chip
+          v-else-if="item.smallGroup2"
+          x-small
+          color="blue lighten-4"
+          class="ml-1"
+        >KG 2</v-chip>
       </template>
       <template v-slot:item.schoolClasses="{ item }">
         {{
