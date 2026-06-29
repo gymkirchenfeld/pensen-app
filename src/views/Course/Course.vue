@@ -171,6 +171,8 @@ export default {
           subject: subject,
           lessons1: -1,
           lessons2: -1,
+          smallGroup1: false,
+          smallGroup2: false,
         },
       });
       this.fetchData();

@@ -60,6 +60,22 @@
           ></v-text-field>
         </v-list-item>
         <v-list-item>
+          <v-row>
+            <v-col>
+              <v-checkbox
+                v-model="item.smallGroup1"
+                label="Kleingruppe 1. Semester"
+              ></v-checkbox>
+            </v-col>
+            <v-col>
+              <v-checkbox
+                v-model="item.smallGroup2"
+                label="Kleingruppe 2. Semester"
+              ></v-checkbox>
+            </v-col>
+          </v-row>
+        </v-list-item>
+        <v-list-item>
           <v-checkbox
             v-model="item.cancelled"
             label="findet nicht statt"
@@ -98,6 +114,8 @@ export default {
         subject: null,
         lessons1: 0,
         lessons2: 0,
+        smallGroup1: false,
+        smallGroup2: false,
         schoolClasses: [],
         schoolYear: null,
         teachers1: [],
