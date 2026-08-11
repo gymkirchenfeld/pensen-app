@@ -63,6 +63,13 @@
                 label="archiviert"
               ></v-checkbox>
             </v-list-item>
+            <v-list-item>
+              <v-checkbox
+                v-if="!add"
+                v-model="item.showIpbBalances"
+                label="IPB-Saldi anzeigen"
+              ></v-checkbox>
+            </v-list-item>
           </v-list>
         </v-col>
         <v-col>

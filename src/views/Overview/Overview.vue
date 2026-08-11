@@ -6,7 +6,11 @@
     v-model="schoolYear"
   >
     <p class="text-h5">Übersicht nach Abteilung</p>
-    <DivisionTable :items="divisions" :loading="loading"></DivisionTable>
+    <DivisionTable
+      :items="divisions"
+      :loading="loading"
+      :showIpbBalances="!schoolYear || schoolYear.showIpbBalances !== false"
+    ></DivisionTable>
 
     <p class="text-h5 mt-10">Anstellung nach Geschlecht</p>
     <GenderTable :items="genders" :loading="loading"></GenderTable>
@@ -33,7 +37,7 @@ function sumEmployment(sum, employment) {
   sum.count += 1;
   sum.payment1 += employment.payment1;
   sum.payment2 += employment.payment2;
-  sum.closingBalance += employment.closingBalance;
+  sum.closingBalance += employment.closingBalance || 0;
 }
 
 function sumGender(sum, employment) {

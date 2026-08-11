@@ -76,6 +76,8 @@ import SearchField from '@/components/SearchField.vue';
 import Select from '@/components/Select.vue';
 import Table from '@/components/Table.vue';
 
+const IPB_BALANCE_COLUMNS = ['openingBalance', 'change', 'closingBalance'];
+
 export default {
   components: {
     JobButton,
@@ -88,7 +90,7 @@ export default {
   data() {
     return {
       division: {},
-      headers: [
+      allHeaders: [
         {
           value: 'comments',
           sortable: false,
@@ -151,6 +153,18 @@ export default {
     },
   },
   computed: {
+    showIpbBalances() {
+      return !this.schoolYear || this.schoolYear.showIpbBalances !== false;
+    },
+    headers() {
+      if (this.showIpbBalances) {
+        return this.allHeaders;
+      }
+
+      return this.allHeaders.filter(
+        (header) => !IPB_BALANCE_COLUMNS.includes(header.value),
+      );
+    },
     filteredItems() {
       return this.items.filter(
         (item) =>
@@ -188,6 +202,10 @@ export default {
       };
     },
     rowClass(item) {
+      if (!this.showIpbBalances) {
+        return '';
+      }
+
       const abs = Math.abs(item.change);
       if (abs < 2.5) {
         return '';
