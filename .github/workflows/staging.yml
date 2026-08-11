@@ -1,0 +1,77 @@
+name: Staging
+
+on:
+  workflow_dispatch:
+    inputs:
+      hinweis:
+        description: 'Notiz für den Auftraggeber (optional)'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+jobs:
+  staging:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Muss vor setup-node laufen: `cache: yarn` ruft intern
+      # `yarn config get cacheFolder` auf und braucht Yarn bereits.
+      - run: corepack enable
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: yarn
+
+      - run: yarn install --immutable
+
+      - run: yarn build
+
+      - name: Namen bestimmen
+        run: |
+          BRANCH=$(echo "$GITHUB_REF_NAME" | tr '/' '-')
+          SHA="${GITHUB_SHA::7}"
+          echo "TAG=staging-${BRANCH}-${SHA}" >> "$GITHUB_ENV"
+          echo "NAME=pensen-app-${BRANCH}-${SHA}" >> "$GITHUB_ENV"
+
+      - name: Artefakte packen
+        working-directory: dist
+        run: |
+          zip -r "../${NAME}.zip" .
+          tar -czf "../${NAME}.tar.gz" .
+
+      - name: Prerelease veröffentlichen
+        env:
+          GH_TOKEN: ${{ github.token }}
+          # Bewusst ueber env statt per ${{ }} direkt in den Shell-Block:
+          # sonst koennte der Eingabetext als Shell-Code ausgefuehrt werden.
+          HINWEIS: ${{ inputs.hinweis }}
+        run: |
+          {
+            echo "Testbuild fuer die Staging-Umgebung."
+            echo ""
+            echo "- Branch: \`$GITHUB_REF_NAME\`"
+            echo "- Commit: \`$GITHUB_SHA\`"
+            if [ -n "$HINWEIS" ]; then
+              echo ""
+              echo "$HINWEIS"
+            fi
+          } > notes.md
+
+          # Bei einem erneuten Lauf auf demselben Commit existiert der Tag
+          # bereits: dann nur die Assets ersetzen, statt mit einem Fehler
+          # abzubrechen.
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" \
+              "${NAME}.zip" "${NAME}.tar.gz" --clobber
+          else
+            gh release create "$TAG" \
+              --prerelease \
+              --target "$GITHUB_SHA" \
+              --title "Staging: $GITHUB_REF_NAME" \
+              --notes-file notes.md \
+              "${NAME}.zip" "${NAME}.tar.gz"
+          fi
