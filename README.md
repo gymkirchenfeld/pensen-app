@@ -67,9 +67,14 @@ einziger Schreibrechte auf das Repository (`contents: write`):
 4. `dist/` wird in zwei Formaten gepackt: `pensen-app-<tag>.zip` und
    `pensen-app-<tag>.tar.gz`. Beide enthalten denselben Inhalt auf oberster
    Ebene, also `index.html`, `css/…`, ohne umschliessenden Ordner.
-5. `gh release create` legt ein GitHub-Release zum Tag an, hängt beide Archive
-   als Assets an und generiert die Release-Notes aus den Commits seit dem
-   letzten Release
+5. `gh release create --draft` legt ein GitHub-Release zum Tag an, hängt beide
+   Archive als Assets an und generiert die Release-Notes aus den Commits seit
+   dem letzten Release
+
+Das Release entsteht als **Entwurf** und ist damit zunächst nur für Personen mit
+Schreibrechten sichtbar. Titel und Beschreibung lassen sich unter
+*Releases → Edit release* frei überarbeiten — die generierten Notes sind nur ein
+Startwert. Veröffentlicht wird es erst mit einem Klick auf *Publish release*.
 
 Beachte: Der Release-Workflow führt **kein** Lint aus. Er setzt voraus, dass der
 Stand bereits über einen PR durch die CI gelaufen ist.
