@@ -35,8 +35,11 @@ jobs:
 
       - run: yarn build
 
-      - name: Artefakt packen
-        run: tar -czf "pensenmanager-${GITHUB_REF_NAME}.tar.gz" -C dist .
+      - name: Artefakte packen
+        working-directory: dist
+        run: |
+          zip -r "../pensen-app-${GITHUB_REF_NAME}.zip" .
+          tar -czf "../pensen-app-${GITHUB_REF_NAME}.tar.gz" .
 
       - name: Release erstellen
         env:
@@ -44,4 +47,5 @@ jobs:
         run: |
           gh release create "$GITHUB_REF_NAME" \
             --generate-notes \
-            "pensenmanager-${GITHUB_REF_NAME}.tar.gz"
+            "pensen-app-${GITHUB_REF_NAME}.zip" \
+            "pensen-app-${GITHUB_REF_NAME}.tar.gz"

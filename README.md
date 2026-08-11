@@ -64,11 +64,12 @@ einziger Schreibrechte auf das Repository (`contents: write`):
    `src/version.js` verglichen. Bei `v3.9.0` muss dort `VERSION = '3.9.0'`
    stehen, sonst bricht der Workflow ab und es entsteht kein Release.
 3. `yarn build`
-4. `dist/` wird zu `pensenmanager-<tag>.tar.gz` gepackt (Inhalt liegt auf
-   oberster Ebene im Archiv, also `./index.html`, `./css/…`)
-5. `gh release create` legt ein GitHub-Release zum Tag an, hängt das Archiv als
-   Asset an und generiert die Release-Notes aus den Commits seit dem letzten
-   Release
+4. `dist/` wird in zwei Formaten gepackt: `pensen-app-<tag>.zip` und
+   `pensen-app-<tag>.tar.gz`. Beide enthalten denselben Inhalt auf oberster
+   Ebene, also `index.html`, `css/…`, ohne umschliessenden Ordner.
+5. `gh release create` legt ein GitHub-Release zum Tag an, hängt beide Archive
+   als Assets an und generiert die Release-Notes aus den Commits seit dem
+   letzten Release
 
 Beachte: Der Release-Workflow führt **kein** Lint aus. Er setzt voraus, dass der
 Stand bereits über einen PR durch die CI gelaufen ist.
