@@ -63,8 +63,10 @@ mitgeben, die in der Beschreibung des Prereleases landet.
 
 Gebaut wird der Stand des gewählten Branches. Ergebnis ist ein als
 *Pre-release* markiertes Release mit dem Tag `staging-<branch>-<sha>`, an dem
-`dist` als `.zip` und `.tar.gz` hängt. Weil das Repository öffentlich ist, sind
-die Asset-Links ohne Anmeldung ladbar und können direkt weitergegeben werden.
+`dist` als `.zip` und `.tar.gz` hängt. Beide Archive enthalten einen Ordner
+`dist/`, entpacken sich also nicht in das aktuelle Verzeichnis. Weil das
+Repository öffentlich ist, sind die Asset-Links ohne Anmeldung ladbar und können
+direkt weitergegeben werden.
 
 Der Namensraum ist bewusst von den Release-Tags getrennt: `release.yml` reagiert
 nur auf `v*`, ein `staging-*`-Tag löst dort also nichts aus. Der SHA im Namen
@@ -85,8 +87,8 @@ einziger Schreibrechte auf das Repository (`contents: write`):
    stehen, sonst bricht der Workflow ab und es entsteht kein Release.
 3. `yarn build`
 4. `dist/` wird in zwei Formaten gepackt: `pensen-app-<tag>.zip` und
-   `pensen-app-<tag>.tar.gz`. Beide enthalten denselben Inhalt auf oberster
-   Ebene, also `index.html`, `css/…`, ohne umschliessenden Ordner.
+   `pensen-app-<tag>.tar.gz`. Beide enthalten einen Ordner `dist/`, entpacken
+   sich also nicht in das aktuelle Verzeichnis.
 5. `gh release create --draft` legt ein GitHub-Release zum Tag an, hängt beide
    Archive als Assets an und generiert die Release-Notes aus den Commits seit
    dem letzten Release

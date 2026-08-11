@@ -38,10 +38,9 @@ jobs:
           echo "NAME=pensen-app-${BRANCH}-${SHA}" >> "$GITHUB_ENV"
 
       - name: Artefakte packen
-        working-directory: dist
         run: |
-          zip -r "../${NAME}.zip" .
-          tar -czf "../${NAME}.tar.gz" .
+          zip -r "${NAME}.zip" dist
+          tar -czf "${NAME}.tar.gz" dist
 
       - name: Prerelease veröffentlichen
         env:

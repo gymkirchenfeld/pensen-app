@@ -36,10 +36,9 @@ jobs:
       - run: yarn build
 
       - name: Artefakte packen
-        working-directory: dist
         run: |
-          zip -r "../pensen-app-${GITHUB_REF_NAME}.zip" .
-          tar -czf "../pensen-app-${GITHUB_REF_NAME}.tar.gz" .
+          zip -r "pensen-app-${GITHUB_REF_NAME}.zip" dist
+          tar -czf "pensen-app-${GITHUB_REF_NAME}.tar.gz" dist
 
       - name: Release erstellen
         env:
