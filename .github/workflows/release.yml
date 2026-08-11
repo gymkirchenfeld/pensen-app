@@ -1,0 +1,47 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Muss vor setup-node laufen: `cache: yarn` ruft intern
+      # `yarn config get cacheFolder` auf und braucht Yarn bereits.
+      - run: corepack enable
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: yarn
+
+      - run: yarn install --immutable
+
+      - name: Version gegen Tag prüfen
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          VERSION=$(sed -n "s/.*VERSION = '\(.*\)'.*/\1/p" src/version.js)
+          if [ "$TAG" != "$VERSION" ]; then
+            echo "Tag $TAG passt nicht zu src/version.js ($VERSION)"
+            exit 1
+          fi
+
+      - run: yarn build
+
+      - name: Artefakt packen
+        run: tar -czf "pensenmanager-${GITHUB_REF_NAME}.tar.gz" -C dist .
+
+      - name: Release erstellen
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            --generate-notes \
+            "pensenmanager-${GITHUB_REF_NAME}.tar.gz"
