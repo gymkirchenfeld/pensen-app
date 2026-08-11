@@ -25,15 +25,15 @@ mitcommittet werden** — sonst schlägt die CI fehl (siehe unten).
 
 ## Was beim Push nach GitHub passiert
 
-Zwei Workflows unter `.github/workflows/`. Welcher läuft, hängt davon ab, wohin
-gepusht wird:
+Drei Workflows unter `.github/workflows/`. Welcher läuft, hängt vom Ereignis ab:
 
-| Ereignis | `ci.yml` | `release.yml` |
-| --- | --- | --- |
-| Push auf einen Feature-Branch (ohne offenen PR) | — | — |
-| Pull Request geöffnet oder aktualisiert | ✅ | — |
-| Push/Merge nach `main` | ✅ | — |
-| Push eines Tags `v*` | — | ✅ |
+| Ereignis | `ci.yml` | `staging.yml` | `release.yml` |
+| --- | --- | --- | --- |
+| Push auf einen Feature-Branch (ohne offenen PR) | — | — | — |
+| Pull Request geöffnet oder aktualisiert | ✅ | — | — |
+| Push/Merge nach `main` | ✅ | — | — |
+| Manueller Start über die Actions-Oberfläche | — | ✅ | — |
+| Push eines Tags `v*` | — | — | ✅ |
 
 Ein Push auf einen Feature-Branch ohne offenen PR löst also nichts aus. Sobald
 ein PR offen ist, läuft die CI bei jedem weiteren Push auf diesen Branch.
@@ -53,6 +53,26 @@ Läuft bei Pull Requests und bei Pushes nach `main`:
 
 Schlägt einer der Schritte fehl, wird der PR rot markiert. Es wird nichts
 veröffentlicht und nichts deployt.
+
+### Staging (`staging.yml`)
+
+Stellt einen Teststand für den Auftraggeber bereit, **bevor** ein Tag gesetzt
+wird. Der Workflow wird von Hand gestartet: *Actions → Staging → Run workflow*,
+dort im Dropdown den gewünschten Branch wählen. Optional lässt sich eine Notiz
+mitgeben, die in der Beschreibung des Prereleases landet.
+
+Gebaut wird der Stand des gewählten Branches. Ergebnis ist ein als
+*Pre-release* markiertes Release mit dem Tag `staging-<branch>-<sha>`, an dem
+`dist` als `.zip` und `.tar.gz` hängt. Weil das Repository öffentlich ist, sind
+die Asset-Links ohne Anmeldung ladbar und können direkt weitergegeben werden.
+
+Der Namensraum ist bewusst von den Release-Tags getrennt: `release.yml` reagiert
+nur auf `v*`, ein `staging-*`-Tag löst dort also nichts aus. Der SHA im Namen
+macht jeden Teststand eindeutig nachvollziehbar. Ein erneuter Lauf auf demselben
+Commit ersetzt lediglich die Assets des bestehenden Prereleases.
+
+Prereleases sammeln sich mit der Zeit an — alte Einträge können unter *Releases*
+von Hand gelöscht werden (samt Tag über *Delete tag*).
 
 ### Release (`release.yml`)
 
