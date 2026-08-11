@@ -34,8 +34,11 @@ jobs:
         run: |
           BRANCH=$(echo "$GITHUB_REF_NAME" | tr '/' '-')
           SHA="${GITHUB_SHA::7}"
+          # Runner laufen in UTC; fuer die Anzeige auf Schweizer Zeit umstellen.
+          ZEIT=$(TZ=Europe/Zurich date '+%d.%m.%Y %H:%M')
           echo "TAG=staging-${BRANCH}-${SHA}" >> "$GITHUB_ENV"
           echo "NAME=pensen-app-${BRANCH}-${SHA}" >> "$GITHUB_ENV"
+          echo "TITEL=Staging: ${GITHUB_REF_NAME} - ${ZEIT}" >> "$GITHUB_ENV"
 
       - name: Artefakte packen
         run: |
@@ -66,11 +69,13 @@ jobs:
           if gh release view "$TAG" >/dev/null 2>&1; then
             gh release upload "$TAG" \
               "${NAME}.zip" "${NAME}.tar.gz" --clobber
+            # Titel nachfuehren, damit der Zeitstempel den letzten Lauf zeigt.
+            gh release edit "$TAG" --title "$TITEL"
           else
             gh release create "$TAG" \
               --prerelease \
               --target "$GITHUB_SHA" \
-              --title "Staging: $GITHUB_REF_NAME" \
+              --title "$TITEL" \
               --notes-file notes.md \
               "${NAME}.zip" "${NAME}.tar.gz"
           fi
