@@ -68,6 +68,12 @@ Gebaut wird der Stand des gewählten Branches. Ergebnis ist ein als
 Repository öffentlich ist, sind die Asset-Links ohne Anmeldung ladbar und können
 direkt weitergegeben werden.
 
+Der Titel des Prereleases enthält den Zeitpunkt des Builds in Schweizer Zeit,
+etwa `Staging: 001-show-ipb-balances - 11.08.2026 16:42`. Die Releases-Seite
+sortiert nämlich nach dem zugrunde liegenden Tag und nicht nach dem Zeitpunkt
+des Workflow-Laufs — am Titel erkennst du zuverlässig, welcher Eintrag der
+aktuelle ist.
+
 Der Namensraum ist bewusst von den Release-Tags getrennt: `release.yml` reagiert
 nur auf `v*`, ein `staging-*`-Tag löst dort also nichts aus. Der SHA im Namen
 macht jeden Teststand eindeutig nachvollziehbar. Ein erneuter Lauf auf demselben
