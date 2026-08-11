@@ -4,7 +4,12 @@
 dist/
 .DS_Store
 node_modules/
-yarn.lock
-.pnp.cjs
-.pnp.loader.mjs
-.yarn/
+
+# Yarn 4 (PnP, ohne Zero-Installs)
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
