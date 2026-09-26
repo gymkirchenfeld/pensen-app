@@ -25,7 +25,9 @@
         <td class="text-right">{{ total.count }}</td>
         <td class="text-right">{{ (total.payment1 / 100).toFixed(1) }}</td>
         <td class="text-right">{{ (total.payment2 / 100).toFixed(1) }}</td>
-        <td class="text-right">{{ total.closingBalance.toFixed() + ' %' }}</td>
+        <td class="text-right" v-if="showIpbBalances">
+          {{ total.closingBalance.toFixed() + ' %' }}
+        </td>
       </tr>
     </template>
   </v-data-table>
@@ -49,24 +51,37 @@ export default {
   props: {
     items: { type: Array },
     loading: { type: Boolean, default: false },
+    showIpbBalances: { type: Boolean, default: true },
   },
   data() {
     return {
-      headers: [
+      total: initTotal(),
+    };
+  },
+  computed: {
+    headers() {
+      const result = [
         { text: 'Abteilung', value: 'division' },
         { align: 'right', text: 'Anzahl Lehrpersonen', value: 'count' },
         { align: 'right', text: 'Vollzeitstellen 1. Sem.', value: 'payment1' },
         { align: 'right', text: 'Vollzeitstellen 2. Sem.', value: 'payment2' },
-        { align: 'right', text: 'IPB-Guthaben', value: 'closingBalance' },
-      ],
-      total: initTotal(),
-    };
+      ];
+      if (this.showIpbBalances) {
+        result.push({
+          align: 'right',
+          text: 'IPB-Guthaben',
+          value: 'closingBalance',
+        });
+      }
+
+      return result;
+    },
   },
   watch: {
     items() {
       this.total = initTotal();
       this.items.forEach((item) => {
-        this.total.closingBalance += item.closingBalance;
+        this.total.closingBalance += item.closingBalance || 0;
         this.total.count += item.count;
         this.total.payment1 += item.payment1;
         this.total.payment2 += item.payment2;
